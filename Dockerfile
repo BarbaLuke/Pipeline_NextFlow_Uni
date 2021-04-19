@@ -1,6 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:latest
 
-RUN apt-get update -y
+RUN apt update -y
+RUN apt install -y trimmomatic
+RUN apt install -y fastqc
 
-RUN apt-get install -y fastqc
-RUN apt-get install -y trimmomatic
+RUN apt upgrade -y
