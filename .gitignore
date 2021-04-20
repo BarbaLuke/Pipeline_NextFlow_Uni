@@ -1,3 +1,4 @@
+pipeline_generale.sh
 data_dir/fastq/*
 data_dir/QC/*
 data_dir/trimmeds/*
