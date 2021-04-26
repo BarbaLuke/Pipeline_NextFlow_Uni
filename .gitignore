@@ -1,7 +1,9 @@
 pipeline_generale.sh
-data_dir/fastq/*
 data_dir/QC/*
-data_dir/trimmeds/*
+data_dir/trimmeds/GSM461178_untreat_paired_subset_1_trimmed.fastq
+data_dir/trimmeds/GSM461178_untreat_paired_subset_1.fastq
+data_dir/trimmeds/GSM461178_untreat_paired_subset_1.trim.summary
+data_dir/fastq/GSM461178_untreat_paired_subset_1.fastq
 example_qualityControl/data_dir/QC/*
 example_qualityControl/data_dir/trimmeds/*
 prove.nf

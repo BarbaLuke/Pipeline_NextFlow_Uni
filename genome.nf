@@ -1,10 +1,17 @@
+    // canale del primo indexing del 2-pass mapping STAR
     canale_genomeDir_FirstPass=Channel.fromPath(params.genomeDir_FirstPass)
+
+    // canale del secondo indexing del 2-pass mapping STAR
     canale_genomeDir_FirstPass2=Channel.fromPath(params.genomeDir_FirstPass)
-    canale_genomeDir=Channel.fromPath(params.genomeDir)
-    canale_genomeDir2=Channel.fromPath(params.genomeDir)
+
+    // 
     canale_runDir_FirstPass=Channel.fromPath(params.runDir_FirstPass)
     canale_runDir=Channel.fromPath(params.runDir)
+
+    // il file del reference genome
     canale_genomeFa=Channel.fromPath(params.genomeFa)
+
+    // il canale dei file trimmed ( da modificare appena faccio il merge)
     canale_trim=Channel.fromPath(params.fastqDir)
 
 
@@ -93,10 +100,11 @@
 
     // questo è il processo per ri-generare il file di riferimento del genoma
     process REgenerate_genome_indexing_file{
-
+        
+        // ho bisogno delle stesse cose della prima generazione dell'index e in più l'output del primo passaggio 
         input:
         path genome_file_fa from canale_genomeFa
-        path genomeDir from canale_genomeDir
+        path genomeDir from canale_genomeDir_FirstPass2
         path file_out from out_firstPass
         
         output:
@@ -114,6 +122,7 @@
     process second_pass_STAR{
         publishDir params.runDir , mode: 'copy', overwrite: true
 
+        // a questo punto possiamo procedere con l'ultimo pass e generare il file di allineamento BAM
         input:
         path genomeDir2 from genomeDir_success
         path files_trimmed from canale_file_trimmed
