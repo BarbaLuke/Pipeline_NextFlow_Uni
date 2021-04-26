@@ -129,12 +129,26 @@
 
         output:
         path file_bam in out_secondPass
+        path genomeDir3
 
         script:
+        genomeDir3 = genomeDir2
         name = files_trimmed.getSimpleName()
         file_bam = name + "Aligned.sortedByCoord.out.bam"
 
         """
         STAR --runMode alignReads --genomeLoad LoadAndKeep --limitBAMsortRAM 30000000000 --genomeDir ${genomeDir2} --readFilesCommand zcat --readFilesIn ${files_trimmed} --runThreadN 25 --outFileNamePrefix ${name} --outSAMtype BAM SortedByCoordinate
         """
+    }
+
+    // rimozione del genoma dalla memoria
+    process remove_genome{
+
+        input:
+        genomeDir4 from genomeDir3
+
+        """
+        STAR --runMode alignReads --genomeLoad Remove --genomeDir ${genomeDir4}
+        """
+
     }
